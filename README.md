@@ -37,13 +37,13 @@ Managing multiple algorithms is simplified with AmpyFin’s dynamic ranking syst
 
 #### 🏆 Ranking System
 
-Each algorithm starts with a base score of 50,000. The system evaluates their performance and assigns a weight based on the following function:
+Each strategy starts with a base score of 0 and a mock balance of $50,000. The system evaluates their performance and assigns a weight based on the following function:
 
 $$
-\left( \frac{e^e}{e^2 - 1} \right)^{2i}
+\left( \frac{e^e}{e^2} - 1 \right)^{2i}
 $$
 
-Where \(i\) is the inverse of the algorithm’s ranking.
+Where \(i\) is the strategy's rank. Please keep in mind that the strategy's rank 
 
 #### ⏳ Time Delta Coefficient
 
@@ -83,9 +83,10 @@ This ensures that strategies with better recent performance have a greater influ
 
 **Features**:
 
-- **trading_strategies_v1.py**: First iteration of AmpyFin used 5 strategies. This file is not supported anymore but is a great reference material
-- **trading_strategies_v2.py**: Houses most of the older strategies being used in the ranking system. Contains 50 strategies with a lot leaning towards momentum.
-- **trading_strategies_v2_1.py**: Newer version that complements the older strategies. Houses 10 more strategies. This is where newer strategies will be implemented until it caps at 50 strategies as well.
+- **trading_strategies_v1.py**: Archived first iteration of AmpyFin used 5 strategies. This file is not supported anymore but is a great reference material
+- **trading_strategies_v2.py**:  Archived second gen older strategies being used in the ranking system. Contains 50 strategies with a lot leaning towards momentum.
+- **trading_strategies_v2_1.py**: Archived second gen older strategies that complements the older strategies in trading_strategies_v2.py. Houses 10 more strategies. This is where newer strategies will be implemented until it caps at 50 strategies as well.
+- **talib_indicators.py**: Contains all the technical indicators used in the strategies. To visit the documentation for each technical indicator, please visit the following link: [Link to TA](https://ta-lib.org/). These indicators were not developed by me, but I have modified their use to fit the needs of AmpyFin.
 
 ### 🔧 helper_files/*
 
@@ -107,9 +108,16 @@ cd AmpyFin
 
 ### 2️⃣ Install Dependencies
 
+- Run the following command to install the required Python packages:
 ```bash
 pip install -r requirements.txt
 ```
+
+- We have recently migrated to using Ta-Lib for trading. Please follow the installation instructions here: 
+
+👉 [Ta-Lib Python Original](https://github.com/TA-Lib/ta-lib-python)
+
+👉 [Ta-Lib Python Easy Installation](https://github.com/cgohlke/talib-build/releases)
 
 ### 3️⃣ Configuration
 
@@ -144,7 +152,7 @@ pip install -r requirements.txt
 
 - Sign up for a MongoDB cluster (e.g., via MongoDB Atlas).
 - Create a database for stock data storage and replace the `mongo_url` in 'config.py' with your connection string. Make sure to give yourself Network Access.
-- Run the mongo setup script `mongo_setup.py`:
+- Run the setup script `setup.py`:
 - After running the mongo setup script, the MongoDB setup for the rest will be completed on the first minute in trading for both ranking and trading.
 
 
@@ -159,7 +167,7 @@ python trading_client.py
 
 ## ⚠️ IMPORTANT
 
-For people looking to do live trading, I suggest training via running ranking_client.py for about two weeks before running the trading bot altogether. This way, you're running with a client that has been trained to a certain extent (with strategies ranked) and is ready to go. Otherwise, you will most likely be buying random stocks.
+For people looking to do live trading, I suggest training via running ranking_client.py for at least two weeks before running the trading bot altogether. This way, you're running with a client that has been trained to a certain extent (with strategies ranked) and is ready to go. Otherwise, you will most likely be buying random stocks.
 
 ## 📑 Logging
 
